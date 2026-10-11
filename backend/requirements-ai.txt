@@ -1,0 +1,15 @@
+# AI / ML models — heavy install (~2.5GB+). Run only when enabling real
+# vision detection (YOLO) and semantic embeddings (sentence-transformers).
+# The core CivicPulse pipeline works without these via deterministic
+# fallbacks; this file OPTIONALLY upgrades it.
+#
+#   pip install -r requirements-ai.txt
+#
+# Then set in backend/.env:
+#   VISION_MODEL_ENABLED=true
+#   EMBEDDINGS_ENABLED=true
+
+torch==2.7.1
+torchvision==0.22.1
+ultralytics==8.3.108
+sentence-transformers==4.1.0
