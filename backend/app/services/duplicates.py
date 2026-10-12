@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import math
 import re
-from datetime import datetime, timezone
+from datetime import datetime
 from difflib import SequenceMatcher
 from typing import Optional
 
@@ -81,7 +81,7 @@ _TOKEN_RE = re.compile(r"[a-zA-Z0-9]+")
 # Location label is included in semantic text, so we only need civic vocabulary
 # synonyms here. Values are per-pair semantic similarity (0.6-0.95).
 SYNONYMS: dict[str, dict[str, float]] = {
-    "huge": {"large": 0.85, "big": 0.9, "massive": 0.9},
+    "huge": {"large": 0.85, "big": 0.9, "massive": 0.9, "deep": 0.75},
     "large": {"huge": 0.85, "big": 0.92},
     "big": {"huge": 0.9, "large": 0.92},
     "pothole": {"hole": 0.85, "crater": 0.9, "potholes": 0.95},
@@ -92,8 +92,8 @@ SYNONYMS: dict[str, dict[str, float]] = {
     "street": {"road": 0.9, "highway": 0.8},
     "near": {"beside": 0.85, "next": 0.8, "close": 0.8, "opposite": 0.75},
     "beside": {"near": 0.85, "next": 0.85},
-    "metro": {"rail": 0.7, "railway": 0.7},
-    "station": {"rail": 0.75, "railway": 0.75},
+    "metro": {"station": 0.85, "rail": 0.7, "railway": 0.7},
+    "station": {"metro": 0.85, "rail": 0.75, "railway": 0.75},
     "garbage": {"trash": 0.9, "waste": 0.85, "rubbish": 0.9, "litter": 0.85},
     "trash": {"garbage": 0.9, "rubbish": 0.9, "waste": 0.85},
     "rubbish": {"garbage": 0.9, "trash": 0.9},
@@ -113,11 +113,8 @@ SYNONYMS: dict[str, dict[str, float]] = {
     "fix": {"repair": 0.95},
     "flowing": {"flood": 0.75, "overflow": 0.85},
     "overflo": {"flowing": 0.8},
-    "station": {"metro": 0.85, "railway": 0.8},
-    "metro": {"station": 0.85, "rail": 0.7},
     "bigger": {"larger": 0.85, "big": 0.85, "large": 0.85},
     "deep": {"huge": 0.75, "large": 0.7, "big": 0.7},
-    "huge": {"deep": 0.75, "large": 0.85, "big": 0.9},
     "outside": {"near": 0.7, "beside": 0.7},
     "stadium": {"ground": 0.7},
 }

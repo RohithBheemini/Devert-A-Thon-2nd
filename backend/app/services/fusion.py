@@ -16,7 +16,7 @@ For each incident the service recomputes the aggregate evidence, priority
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlalchemy.orm import Session
 

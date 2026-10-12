@@ -27,9 +27,6 @@ from ..services.predictive import resolution_state
 
 logger = logging.getLogger(__name__)
 
-DUE_SOON_REMAINING_HOURS = 6.0
-STALLED_AFTER_HOURS = 48.0
-
 ESCALATION_LABELS = {0: "NONE", 1: "DUE_SOON", 2: "OVERDUE", 3: "STALLED"}
 
 

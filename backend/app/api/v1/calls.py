@@ -6,8 +6,6 @@ CallStatusCallback) plus list/detail for the dashboard and a demo simulator.
 
 from __future__ import annotations
 
-import logging
-
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -16,8 +14,6 @@ from ...db.database import get_db
 from ...models.models import PhoneCall
 from ...schemas.schemas import CallOut
 from ...services import exotel
-
-logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/calls", tags=["calls"])
 

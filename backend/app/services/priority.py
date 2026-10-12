@@ -7,8 +7,6 @@ always accompanied by a per-signal breakdown so the dashboard can show
 
 from __future__ import annotations
 
-import math
-from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Optional
@@ -44,18 +42,6 @@ def level_from_score(score: float) -> PriorityLevel:
     if score >= 45:
         return PriorityLevel.MEDIUM
     return PriorityLevel.LOW
-
-
-@dataclass
-class PriorityBreakdown:
-    severity: float
-    reportRepetition: float
-    affectedArea: float
-    locationImportance: float
-    age: float
-
-    def to_dict(self) -> dict:
-        return asdict(self)
 
 
 def _clamp(v: float, lo: float = 0.0, hi: float = 1.0) -> float:

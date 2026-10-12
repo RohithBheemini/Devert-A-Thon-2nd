@@ -34,9 +34,6 @@ PRIORITY_MULTIPLIER: dict[str, float] = {
     "LOW": 1.40,
 }
 
-# +10% per this many concurrently OPEN incidents in the same department
-WORKLOAD_STEP = 3
-
 
 def base_hours(issue_type: str) -> float:
     return BASE_RESOLUTION_HOURS.get(issue_type, 48.0)

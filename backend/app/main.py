@@ -7,43 +7,14 @@ Each is realized as a thin agent wrapper, orchestrated by the Supervisor.
 
 from __future__ import annotations
 
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from .agents.agents import (
-    ActionPlanningAgent,
-    DuplicateAgent,
-    EvidenceAgent,
-    IntakeAgent,
-    PriorityAgent,
-    RoutingAgent,
-    Supervisor,
-)
 from .api.v1 import analytics, calls, dashboard, demo, incidents, metrics, reports, sms
 from .core.config import settings
-from .core.constants import ACTION_LIBRARY, DAILY_ROUTING_TEMPLATE
 from .core.paths import UPLOADS_DIR
 from .db.database import Base, engine
-from .services.duplicates import compute_relatedness
-from .services.priority import compute_priority
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Agent layer assembly (PRD section 23)
-    supervisor = Supervisor(
-        intake=IntakeAgent(),
-        evidence=EvidenceAgent(),
-        duplicate=DuplicateAgent(compute_relatedness),
-        priority=PriorityAgent(compute_priority),
-        actions=ActionPlanningAgent(ACTION_LIBRARY),
-        routing=RoutingAgent(DAILY_ROUTING_TEMPLATE),
-    )
-    app.state.supervisor = supervisor
-    yield
 
 
 # Ensure schema exists before any request (idempotent).
@@ -54,7 +25,6 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description="AI civic issue intake & resolution assistant (DVPS30).",
-    lifespan=lifespan,
 )
 
 app.add_middleware(

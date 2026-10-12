@@ -23,7 +23,6 @@ from email.mime.text import MIMEText
 from sqlalchemy.orm import Session
 
 from ..core.config import settings
-from ..core.constants import DEPARTMENT_LABELS
 from ..core.paths import DEMO_EMAIL_LOG
 from ..core.timeutil import utcnow
 from ..models.models import Incident, Notification

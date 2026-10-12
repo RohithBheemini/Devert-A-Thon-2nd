@@ -7,8 +7,6 @@ return None with a clear note instead of fake values.
 
 from __future__ import annotations
 
-from typing import Optional
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -17,42 +15,6 @@ from ...db.database import get_db
 from ...models.models import Incident, Report
 
 router = APIRouter(prefix="/metrics", tags=["metrics"])
-
-
-def _macro_f1(reports: list[Report]) -> Optional[dict]:
-    """Compare issue_type assigned by pipeline to a ground-truth label.
-
-    Ground truth comes from a "ground_truth" classification source tag or
-    the demo seed (which stamps expected labels). Without fixtures we
-    return None rather than inventing numbers.
-    """
-    gt = [
-        r for r in reports if r.classification_source == "ground_truth"
-    ] if False else []
-    if not gt:
-        return None
-
-    from collections import defaultdict
-
-    tp = defaultdict(int)
-    fp = defaultdict(int)
-    fn = defaultdict(int)
-    classes = {r.issue_type for r in gt if r.issue_type}
-    for r in gt:
-        expected = r.issue_type
-        if expected not in classes:
-            continue
-        # ground truth is stored in description marker; treat current issue_type as prediction
-        tp[expected] += 1
-
-    per_class = []
-    for cls in sorted(classes):
-        p = tp[cls] / (tp[cls] + fp[cls]) if (tp[cls] + fp[cls]) else 0.0
-        r_ = tp[cls] / (tp[cls] + fn[cls]) if (tp[cls] + fn[cls]) else 0.0
-        f1 = 2 * p * r_ / (p + r_) if (p + r_) else 0.0
-        per_class.append({"class": cls, "precision": round(p, 3), "recall": round(r_, 3), "f1": round(f1, 3)})
-    macro = sum(c["f1"] for c in per_class) / len(per_class) if per_class else 0.0
-    return {"macro_f1": round(macro, 3), "per_class": per_class}
 
 
 @router.get("")
@@ -100,7 +62,7 @@ def get_metrics(db: Session = Depends(get_db)):
             "samples": len(classified),
             "unclassified": len(unclassified),
             "classified_rate": round(len(classified) / total_reports, 3) if total_reports else 0,
-            "macro_f1": _macro_f1(reports),
+            "macro_f1": None,
             "note": "Macro-F1 needs a labeled ground-truth set (see /demo/seed).",
         },
         "duplicate_detection": {

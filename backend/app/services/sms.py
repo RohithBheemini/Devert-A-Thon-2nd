@@ -27,13 +27,6 @@ from ..services.hotspots import WARD_ANCHORS  # noqa: E402
 
 DEFAULT_LAT, DEFAULT_LNG = 17.4849, 78.3897  # Kukatpally
 
-MAINTENANCE_BUDGET = 10  # SMSes accepted per sweep; everything is mock anyway
-
-_STOP_WORDS = (
-    "pls", "please", "fix", "there", "is", "have", "has", "got", "very",
-    "near", "at", "in", "on", "the", "a", "an", "and", "of", "to", "for",
-)
-
 
 def parse_sms(text: str) -> dict:
     """Extract {latitude, longitude, location_label, excerpt} from free text."""

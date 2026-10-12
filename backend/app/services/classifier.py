@@ -20,13 +20,6 @@ from ..services.duplicates import text_classify
 HIGH_CONF = 0.80
 MED_CONF = 0.60
 
-POTHOLE_VISION_MAP = {
-    "pothole": "pothole",
-    "road defect": "pothole",
-    "road crack": "pothole",
-    "hole": "pothole",
-}
-
 VISION_CLASS_TO_ISSUE: dict[str, Optional[str]] = {
     "pothole": "pothole",
     "road crack": "pothole",

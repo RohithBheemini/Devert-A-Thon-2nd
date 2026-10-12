@@ -653,27 +653,6 @@ export default function Dashboard() {
               </div>
             </div>
           )}
-
-          {/* Collapsible Secondary Oversight for Split Mode */}
-          {viewMode === "split" && (
-            <div className="mt-8 border-t border-slate-200/80 pt-6">
-              <h2 className="font-display text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Radio className="h-4 w-4 text-brand-600" /> Autonomous Systems & Telephony Watchdog
-              </h2>
-              <div className="grid gap-5 lg:grid-cols-3">
-                <div className="lg:col-span-2">
-                  <WatchdogPanel onOpen={(id) => openDetail(id)} />
-                </div>
-                <HotspotPanel />
-              </div>
-              <div className="mt-5 grid gap-5 lg:grid-cols-3">
-                <CallsPanel />
-                <div className="lg:col-span-2">
-                  <SmsInboxPanel onOpenIncident={openDetail} />
-                </div>
-              </div>
-            </div>
-          )}
         </>
       )}
 

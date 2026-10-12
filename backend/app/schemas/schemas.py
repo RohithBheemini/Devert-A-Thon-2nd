@@ -4,22 +4,6 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 # ---------- Report ----------
-class ReportCreate(BaseModel):
-    description: str = Field(..., min_length=1, max_length=2000)
-    latitude: float
-    longitude: float
-    accuracy_meters: float | None = None
-    location_label: str | None = None
-    voice_transcript: str | None = None
-
-
-class ReportEvidence(BaseModel):
-    text: dict
-    image: dict | None = None
-    voice: dict
-    location: dict
-
-
 class ReportOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

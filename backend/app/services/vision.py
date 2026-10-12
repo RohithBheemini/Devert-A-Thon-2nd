@@ -178,9 +178,8 @@ def severity_from_area(area_fraction: float) -> float:
     A defect filling the frame is more severe than a chip in the corner;
     saturates at ~30% of frame.
     """
-    import numpy as np
-
-    return float(round(np.clip(0.30 + (area_fraction - 0.03) / 0.22 * 0.65, 0.30, 0.95), 3))
+    val = 0.30 + (area_fraction - 0.03) / 0.22 * 0.65
+    return float(round(min(0.95, max(0.30, val)), 3))
 
 
 vision_service = VisionService(

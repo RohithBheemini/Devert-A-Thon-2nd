@@ -47,7 +47,6 @@ ISSUE_ALIASES: dict[str, str] = {
     "road defects": IssueType.POTHOLE.value,
     "road damage": IssueType.POTHOLE.value,
     "road crack": IssueType.POTHOLE.value,
-    "road crack": IssueType.POTHOLE.value,
     "speed breaker": IssueType.POTHOLE.value,
     "speed bump": IssueType.POTHOLE.value,
     "deadly road": IssueType.POTHOLE.value,
